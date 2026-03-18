@@ -1,0 +1,133 @@
+package com.ayush.academicerp.controller;
+
+import com.ayush.academicerp.service.AdvancedAnalyticsService;
+import com.ayush.academicerp.service.AnalyticsEngine;
+import com.ayush.academicerp.dto.AnalyticsDTO.*;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
+
+@RestController
+@RequestMapping("/api/analytics")
+@CrossOrigin(origins = "http://localhost:5173")
+@RequiredArgsConstructor
+public class AdvancedAnalyticsController {
+
+    private final AdvancedAnalyticsService advancedAnalyticsService;
+    private final AnalyticsEngine analyticsEngine;
+
+    // Real-time metrics
+    @GetMapping("/realtime")
+    public ResponseEntity<Map<String, Object>> getRealTimeMetrics() {
+        return ResponseEntity.ok(advancedAnalyticsService.getRealTimeMetrics());
+    }
+
+    @GetMapping("/overview")
+    public ResponseEntity<OverviewMetrics> getOverviewAnalytics() {
+        return ResponseEntity.ok(analyticsEngine.generateOverviewMetrics());
+    }
+
+    @GetMapping("/departments")
+    public ResponseEntity<List<DepartmentAnalytics>> getDepartmentAnalytics() {
+        return ResponseEntity.ok(analyticsEngine.generateDepartmentAnalytics());
+    }
+
+    @GetMapping("/subjects")
+    public ResponseEntity<List<SubjectAnalytics>> getSubjectAnalytics() {
+        return ResponseEntity.ok(analyticsEngine.generateSubjectAnalytics());
+    }
+
+    @GetMapping("/risk-analysis")
+    public ResponseEntity<StudentRiskPage> getRiskAnalysis(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(required = false, defaultValue = "") String search,
+            @RequestParam(required = false, defaultValue = "") String risk
+    ) {
+        String searchTerm = (search != null && !search.isBlank()) ? search.trim() : null;
+        String riskFilter = (risk != null && !risk.isBlank()) ? risk.trim().toUpperCase() : null;
+        return ResponseEntity.ok(analyticsEngine.generateStudentRiskAnalytics(page, size, searchTerm, riskFilter));
+    }
+
+    @GetMapping("/trends")
+    public ResponseEntity<List<AttendanceTrend>> getTrendAnalysis(@RequestParam(defaultValue = "8") int weeks) {
+        return ResponseEntity.ok(analyticsEngine.generateAttendanceTrend(weeks));
+    }
+
+    @GetMapping("/insights")
+    public ResponseEntity<List<Insight>> getInsights() {
+        return ResponseEntity.ok(analyticsEngine.generateInsights());
+    }
+
+    @GetMapping("/predictions")
+    public ResponseEntity<List<Prediction>> getPredictions() {
+        return ResponseEntity.ok(analyticsEngine.generatePredictions());
+    }
+
+    @GetMapping("/predictions/dropout")
+    public ResponseEntity<?> getDropoutPredictions() {
+        return ResponseEntity.ok(advancedAnalyticsService.getDropoutPredictions());
+    }
+
+    @GetMapping("/forecasts/performance")
+    public ResponseEntity<?> getPerformanceForecasts() {
+        return ResponseEntity.ok(advancedAnalyticsService.getPerformanceForecasts());
+    }
+
+    @GetMapping("/patterns/behavioral")
+    public ResponseEntity<?> getBehavioralPatterns() {
+        return ResponseEntity.ok(advancedAnalyticsService.getBehavioralPatterns());
+    }
+
+    @GetMapping("/engagement/metrics")
+    public ResponseEntity<?> getEngagementMetrics() {
+        return ResponseEntity.ok(advancedAnalyticsService.getEngagementMetrics());
+    }
+
+    @PostMapping("/comparative")
+    public ResponseEntity<?> getComparativeAnalysis(@RequestBody Map<String, Object> request) {
+        @SuppressWarnings("unchecked")
+        java.util.List<Long> departmentIds = (java.util.List<Long>) request.get("departmentIds");
+        return ResponseEntity.ok(advancedAnalyticsService.getComparativeAnalysis(departmentIds));
+    }
+
+    @GetMapping("/anomalies")
+    public ResponseEntity<?> getAnomalyDetection() {
+        return ResponseEntity.ok(advancedAnalyticsService.getAnomalyDetection());
+    }
+
+    @GetMapping("/reports/executive")
+    public ResponseEntity<byte[]> generateExecutiveReport(
+            @RequestParam(required = false, defaultValue = "30d") String timeRange) {
+        byte[] report = advancedAnalyticsService.generateExecutiveReport(timeRange);
+        return ResponseEntity.ok()
+                .header("Content-Type", "application/pdf")
+                .header("Content-Disposition", "attachment; filename=executive_report.pdf")
+                .body(report);
+    }
+
+    @GetMapping("/recommendations/{studentId}")
+    public ResponseEntity<?> getRecommendations(@PathVariable Long studentId) {
+        return ResponseEntity.ok(advancedAnalyticsService.getRecommendations(studentId));
+    }
+
+    @GetMapping("/recommendations")
+    public ResponseEntity<?> getGeneralRecommendations() {
+        // Return general recommendations when no student ID is provided
+        return ResponseEntity.ok(advancedAnalyticsService.getGeneralRecommendations());
+    }
+
+    @GetMapping("/sentiment")
+    public ResponseEntity<Map<String, Double>> getSentimentAnalysis() {
+        return ResponseEntity.ok(advancedAnalyticsService.getSentimentAnalysis());
+    }
+
+    @GetMapping("/heatmaps/attendance")
+    public ResponseEntity<?> getAttendanceHeatmaps(
+            @RequestParam(required = false, defaultValue = "30d") String timeRange) {
+        return ResponseEntity.ok(advancedAnalyticsService.getAttendanceHeatmaps(timeRange));
+    }
+}
