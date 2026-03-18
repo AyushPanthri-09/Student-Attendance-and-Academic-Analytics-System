@@ -28,7 +28,9 @@ C:\Users\Ayush\Downloads\academic-erp_1\academic-erp\backend\src\main\java\com\a
 C:\Users\Ayush\Downloads\academic-erp_1\academic-erp\backend\src\main\java\com\ayush\academicerp\repository\DepartmentRepository.java
 C:\Users\Ayush\Downloads\academic-erp_1\academic-erp\backend\src\main\java\com\ayush\academicerp\entity\Student.java
 C:\Users\Ayush\Downloads\academic-erp_1\academic-erp\backend\src\main\java\com\ayush\academicerp\repository\UserRepository.java
+C:\Users\Ayush\Downloads\academic-erp_1\academic-erp\backend\src\main\java\com\ayush\academicerp\config\DataInitializer.java
 C:\Users\Ayush\Downloads\academic-erp_1\academic-erp\backend\src\main\java\com\ayush\academicerp\repository\FacultyRepository.java
+C:\Users\Ayush\Downloads\academic-erp_1\academic-erp\backend\src\main\java\com\ayush\academicerp\repository\SubjectRepository.java
 C:\Users\Ayush\Downloads\academic-erp_1\academic-erp\backend\src\main\java\com\ayush\academicerp\dto\AnalyticsDTO.java
 C:\Users\Ayush\Downloads\academic-erp_1\academic-erp\backend\src\main\java\com\ayush\academicerp\entity\Resource.java
 C:\Users\Ayush\Downloads\academic-erp_1\academic-erp\backend\src\main\java\com\ayush\academicerp\config\JwtService.java
