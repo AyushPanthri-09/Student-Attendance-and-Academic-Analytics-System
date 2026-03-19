@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Comprehensive Analytics Debug</title>
+    <style>
+        body { 
+            font-family: Arial; 
+            padding: 20px; 
+            max-width: 1200px; 
+            background: #f5f5f5;
+        }
+        .endpoint { 
+            margin: 15px 0; 
+            padding: 12px; 
+            border-radius: 5px; 
+            background: white;
+            border-left: 4px solid #ccc;
+        }
+        .endpoint.loading { 
+            border-left-color: #ffc107;
+            background: #fffbf0;
+        }
+        .endpoint.success { 
+            border-left-color: #28a745;
+            background: #f0f8f5;
+        }
+        .endpoint.error { 
+            border-left-color: #dc3545;
+            background: #faf5f5;
+        }
+        .status { font-weight: bold; }
+        code { background: #f0f0f0; padding: 2px 5px; }
+    </style>
+</head>
+<body>
+<h1>🔍 Comprehensive Analytics - API Debug</h1>
+
+<div id="results"></div>
+
+<script>
+const baseUrl = 'http://localhost:8080/api/analytics';
+const endpoints = [
+    'overview',
+    'departments', 
+    'subjects',
+    'risk-analysis',
+    'trends',
+    'insights',
+    'anomalies',
+    'realtime',
+    'predictions',
+    'recommendations',
+    'sentiment'
+];
+
+const resultsDiv = document.getElementById('results');
+
+async function testEndpoint(endpoint) {
+    const el = document.createElement('div');
+    el.className = 'endpoint loading';
+    el.innerHTML = `<strong>${endpoint}</strong>: <span class="status">Loading...</span>`;
+    resultsDiv.appendChild(el);
+    
+    try {
+        const response = await fetch(`${baseUrl}/${endpoint}`, {
+            method: 'GET',
+            timeout: 3000
+        });
+        
+        const status = response.status;
+        const data = await response.json();
+        
+        if (response.ok) {
+            el.className = 'endpoint success';
+            el.innerHTML = `<strong>${endpoint}</strong>: <span class="status">✅ ${status}</span> - ${Object.keys(data).length} fields returned`;
+        } else {
+            el.className = 'endpoint error';
+            el.innerHTML = `<strong>${endpoint}</strong>: <span class="status">⚠️ ${status}</span> - ${data.message || 'unknown error'}`;
+        }
+    } catch (error) {
+        el.className = 'endpoint error';
+        el.innerHTML = `<strong>${endpoint}</strong>: <span class="status">❌ Error</span> - ${error.message}`;
+    }
+}
+
+// Test all endpoints sequentially
+async function testAll() {
+    for (const endpoint of endpoints) {
+        await testEndpoint(endpoint);
+        await new Promise(r => setTimeout(r, 300)); // Small delay between requests
+    }
+}
+
+testAll();
+</script>
+</body>
+</html>

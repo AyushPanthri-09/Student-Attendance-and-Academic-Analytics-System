@@ -1,0 +1,1 @@
+<DepartmentCharts className="jsx"></DepartmentCharts>

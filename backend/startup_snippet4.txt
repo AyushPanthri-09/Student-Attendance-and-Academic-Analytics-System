@@ -1,0 +1,300 @@
+﻿
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.5)
+
+2026-03-18T15:59:39.543+05:30  INFO 11324 --- [           main] c.a.academicerp.AcademicErpApplication   : Starting AcademicErpApplication v0.0.1-SNAPSHOT using Java 17.0.10 with PID 11324 (C:\Users\sriva\Downloads\JAVA PROJECT RAHUL SIR\Student-Attendance-and-Academic-Analytics-System-main\backend\target\academic-erp-0.0.1-SNAPSHOT.jar started by sriva in C:\Users\sriva\Downloads\JAVA PROJECT RAHUL SIR\Student-Attendance-and-Academic-Analytics-System-main\backend)
+2026-03-18T15:59:39.554+05:30  INFO 11324 --- [           main] c.a.academicerp.AcademicErpApplication   : No active profile set, falling back to 1 default profile: "default"
+2026-03-18T15:59:41.078+05:30  INFO 11324 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-18T15:59:41.244+05:30  INFO 11324 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 143 ms. Found 12 JPA repository interfaces.
+2026-03-18T15:59:42.480+05:30  INFO 11324 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-03-18T15:59:42.500+05:30  INFO 11324 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-18T15:59:42.500+05:30  INFO 11324 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-03-18T15:59:42.562+05:30  INFO 11324 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-03-18T15:59:42.563+05:30  INFO 11324 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2858 ms
+2026-03-18T15:59:42.858+05:30  INFO 11324 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-03-18T15:59:42.980+05:30  INFO 11324 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-03-18T15:59:43.050+05:30  INFO 11324 --- [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-03-18T15:59:43.644+05:30  INFO 11324 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-18T15:59:43.679+05:30  INFO 11324 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-03-18T15:59:43.944+05:30  INFO 11324 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@108b121f
+2026-03-18T15:59:43.948+05:30  INFO 11324 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-03-18T15:59:44.017+05:30  WARN 11324 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-18T15:59:44.017+05:30  WARN 11324 --- [           main] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2026-03-18T15:59:45.179+05:30  INFO 11324 --- [           main] o.h.m.i.EntityInstantiatorPojoStandard   : HHH000182: No default (no-argument) constructor for class: com.ayush.academicerp.entity.Subject (class must be instantiated by Interceptor)
+2026-03-18T15:59:45.478+05:30  INFO 11324 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+Hibernate: 
+    create table academiccalendars (
+        id bigint not null auto_increment,
+        name varchar(255),
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    create table attendances (
+        id bigint not null auto_increment,
+        date date not null,
+        remarks varchar(255),
+        status enum ('PRESENT','ABSENT','LATE') not null,
+        student_id bigint not null,
+        subject_id bigint not null,
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    alter table courses 
+       add column faculty_id bigint
+Hibernate: 
+    alter table departments 
+       add column code varchar(255)
+Hibernate: 
+    create table feess (
+        id bigint not null auto_increment,
+        name varchar(255),
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    create table markss (
+        id bigint not null auto_increment,
+        name varchar(255),
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    alter table resources 
+       add column name varchar(255)
+Hibernate: 
+    create table student_subject_enrollments (
+        id bigint not null auto_increment,
+        enrollment_date datetime(6),
+        is_active bit,
+        student_id bigint not null,
+        subject_id bigint not null,
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    alter table subjects 
+       add column code varchar(255) not null
+Hibernate: 
+    alter table subjects 
+       add column semester integer not null
+Hibernate: 
+    alter table subjects 
+       add column department_id bigint
+Hibernate: 
+    alter table users 
+       modify column role varchar(255)
+Hibernate: 
+    alter table departments 
+       drop index UK_l7tivi5261wxdnvo6cct9gg6t
+Hibernate: 
+    alter table departments 
+       add constraint UK_l7tivi5261wxdnvo6cct9gg6t unique (code)
+Hibernate: 
+    alter table subjects 
+       drop index UK_rg7x1lyii7kdyycw98d45vep5
+Hibernate: 
+    alter table subjects 
+       add constraint UK_rg7x1lyii7kdyycw98d45vep5 unique (code)
+Hibernate: 
+    alter table attendances 
+       add constraint FK7bm4q4wptspkenhrsjgatdmk0 
+       foreign key (student_id) 
+       references students (id)
+Hibernate: 
+    alter table attendances 
+       add constraint FKgpnn0q2bpd2ocr92u2sf7lytc 
+       foreign key (subject_id) 
+       references subjects (id)
+Hibernate: 
+    alter table courses 
+       add constraint FKkb7y7evjam6951oast40wqk1b 
+       foreign key (faculty_id) 
+       references faculty (id)
+Hibernate: 
+    alter table student_subject_enrollments 
+       add constraint FKci7n2rf99f5vcf3r6jfvimeuq 
+       foreign key (student_id) 
+       references students (id)
+Hibernate: 
+    alter table student_subject_enrollments 
+       add constraint FKjkjgt1guy06hcxp184bsqxru3 
+       foreign key (subject_id) 
+       references subjects (id)
+Hibernate: 
+    alter table subjects 
+       add constraint FKgh0j5ejuox2kr2av0l8158c0a 
+       foreign key (department_id) 
+       references departments (id)
+2026-03-18T15:59:46.903+05:30  INFO 11324 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-18T15:59:47.428+05:30  INFO 11324 --- [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-18T15:59:48.891+05:30  WARN 11324 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-18T15:59:49.126+05:30  INFO 11324 --- [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1e7d3d93, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5f93c6ef, org.springframework.security.web.context.SecurityContextHolderFilter@22e494dc, org.springframework.security.web.header.HeaderWriterFilter@3c9d5578, org.springframework.web.filter.CorsFilter@60355cc5, org.springframework.security.web.authentication.logout.LogoutFilter@30cbba6b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@52b8633c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@632e3100, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7defd5f5, org.springframework.security.web.access.ExceptionTranslationFilter@4c0ac628, org.springframework.security.web.access.intercept.AuthorizationFilter@62146774]
+2026-03-18T15:59:49.806+05:30  INFO 11324 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2026-03-18T15:59:49.829+05:30  INFO 11324 --- [           main] c.a.academicerp.AcademicErpApplication   : Started AcademicErpApplication in 11.259 seconds (process running for 12.195)
+Hibernate: 
+    select
+        count(*) 
+    from
+        attendances a1_0
+Hibernate: 
+    select
+        count(*) 
+    from
+        students s1_0
+Hibernate: 
+    select
+        count(*) 
+    from
+        departments d1_0
+Hibernate: 
+    select
+        count(*) 
+    from
+        student_subject_enrollments sse1_0
+Hibernate: 
+    select
+        count(*) 
+    from
+        courses c1_0
+2026-03-18T15:59:50.029+05:30  INFO 11324 --- [           main] c.a.academicerp.config.DataInitializer   : Database counts - Attendance: 0, Students: 500, Departments: 4, Enrollments: 0, Courses: 4
+2026-03-18T15:59:50.029+05:30  INFO 11324 --- [           main] c.a.academicerp.config.DataInitializer   : Generating attendance data for existing students...
+Hibernate: 
+    select
+        s1_0.id,
+        s1_0.course_id,
+        s1_0.department_id,
+        s1_0.dob,
+        s1_0.exam_eligible,
+        s1_0.name,
+        s1_0.roll_no,
+        s1_0.semester 
+    from
+        students s1_0
+Hibernate: 
+    select
+        d1_0.id,
+        d1_0.code,
+        d1_0.name 
+    from
+        departments d1_0 
+    where
+        d1_0.id=?
+Hibernate: 
+    select
+        d1_0.id,
+        d1_0.code,
+        d1_0.name 
+    from
+        departments d1_0 
+    where
+        d1_0.id=?
+Hibernate: 
+    select
+        d1_0.id,
+        d1_0.code,
+        d1_0.name 
+    from
+        departments d1_0 
+    where
+        d1_0.id=?
+Hibernate: 
+    select
+        d1_0.id,
+        d1_0.code,
+        d1_0.name 
+    from
+        departments d1_0 
+    where
+        d1_0.id=?
+Hibernate: 
+    select
+        s1_0.id,
+        s1_0.code,
+        s1_0.department_id,
+        s1_0.name,
+        s1_0.semester 
+    from
+        subjects s1_0
+2026-03-18T15:59:50.284+05:30  INFO 11324 --- [           main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-03-18T15:59:50.308+05:30 ERROR 11324 --- [           main] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.orm.jpa.JpaSystemException: No default constructor for entity 'com.ayush.academicerp.entity.Subject'
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.convertHibernateAccessException(HibernateJpaDialect.java:341) ~[spring-orm-6.1.6.jar!/:6.1.6]
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:241) ~[spring-orm-6.1.6.jar!/:6.1.6]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.translateExceptionIfPossible(AbstractEntityManagerFactoryBean.java:550) ~[spring-orm-6.1.6.jar!/:6.1.6]
+	at org.springframework.dao.support.ChainedPersistenceExceptionTranslator.translateExceptionIfPossible(ChainedPersistenceExceptionTranslator.java:61) ~[spring-tx-6.1.6.jar!/:6.1.6]
+	at org.springframework.dao.support.DataAccessUtils.translateIfNecessary(DataAccessUtils.java:335) ~[spring-tx-6.1.6.jar!/:6.1.6]
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:152) ~[spring-tx-6.1.6.jar!/:6.1.6]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.1.6.jar!/:6.1.6]
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:164) ~[spring-data-jpa-3.2.5.jar!/:3.2.5]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.1.6.jar!/:6.1.6]
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97) ~[spring-aop-6.1.6.jar!/:6.1.6]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.1.6.jar!/:6.1.6]
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:223) ~[spring-aop-6.1.6.jar!/:6.1.6]
+	at jdk.proxy2/jdk.proxy2.$Proxy128.findAll(Unknown Source) ~[na:na]
+	at com.ayush.academicerp.config.DataInitializer.generateAttendanceForExistingStudents(DataInitializer.java:112) ~[!/:0.0.1-SNAPSHOT]
+	at com.ayush.academicerp.config.DataInitializer.run(DataInitializer.java:50) ~[!/:0.0.1-SNAPSHOT]
+	at org.springframework.boot.SpringApplication.lambda$callRunner$5(SpringApplication.java:790) ~[spring-boot-3.2.5.jar!/:3.2.5]
+	at org.springframework.util.function.ThrowingConsumer$1.acceptWithException(ThrowingConsumer.java:83) ~[spring-core-6.1.6.jar!/:6.1.6]
+	at org.springframework.util.function.ThrowingConsumer.accept(ThrowingConsumer.java:60) ~[spring-core-6.1.6.jar!/:6.1.6]
+	at org.springframework.util.function.ThrowingConsumer$1.accept(ThrowingConsumer.java:88) ~[spring-core-6.1.6.jar!/:6.1.6]
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:798) ~[spring-boot-3.2.5.jar!/:3.2.5]
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:789) ~[spring-boot-3.2.5.jar!/:3.2.5]
+	at org.springframework.boot.SpringApplication.lambda$callRunners$3(SpringApplication.java:774) ~[spring-boot-3.2.5.jar!/:3.2.5]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:183) ~[na:na]
+	at java.base/java.util.stream.SortedOps$SizedRefSortingSink.end(SortedOps.java:357) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:510) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499) ~[na:na]
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:150) ~[na:na]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:173) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596) ~[na:na]
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:774) ~[spring-boot-3.2.5.jar!/:3.2.5]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:341) ~[spring-boot-3.2.5.jar!/:3.2.5]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354) ~[spring-boot-3.2.5.jar!/:3.2.5]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343) ~[spring-boot-3.2.5.jar!/:3.2.5]
+	at com.ayush.academicerp.AcademicErpApplication.main(AcademicErpApplication.java:9) ~[!/:0.0.1-SNAPSHOT]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:91) ~[academic-erp-0.0.1-SNAPSHOT.jar:0.0.1-SNAPSHOT]
+	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:53) ~[academic-erp-0.0.1-SNAPSHOT.jar:0.0.1-SNAPSHOT]
+	at org.springframework.boot.loader.launch.JarLauncher.main(JarLauncher.java:58) ~[academic-erp-0.0.1-SNAPSHOT.jar:0.0.1-SNAPSHOT]
+Caused by: org.hibernate.InstantiationException: No default constructor for entity 'com.ayush.academicerp.entity.Subject'
+	at org.hibernate.metamodel.internal.EntityInstantiatorPojoStandard.instantiate(EntityInstantiatorPojoStandard.java:93) ~[hibernate-core-6.4.4.Final.jar!/:6.4.4.Final]
+	at org.hibernate.persister.entity.AbstractEntityPersister.instantiate(AbstractEntityPersister.java:4586) ~[hibernate-core-6.4.4.Final.jar!/:6.4.4.Final]
+	at org.hibernate.internal.SessionImpl.instantiate(SessionImpl.java:1463) ~[hibernate-core-6.4.4.Final.jar!/:6.4.4.Final]
+	at org.hibernate.sql.results.graph.entity.AbstractEntityInitializer.instantiateEntity(AbstractEntityInitializer.java:691) ~[hibernate-core-6.4.4.Final.jar!/:6.4.4.Final]
+	at org.hibernate.sql.results.graph.entity.AbstractEntityInitializer.resolveEntityInstance(AbstractEntityInitializer.java:684) ~[hibernate-core-6.4.4.Final.jar!/:6.4.4.Final]
+	at org.hibernate.sql.results.graph.entity.AbstractEntityInitializer.resolveInstance(AbstractEntityInitializer.java:650) ~[hibernate-core-6.4.4.Final.jar!/:6.4.4.Final]
+	at org.hibernate.sql.results.graph.entity.AbstractEntityInitializer.resolveEntityInstance(AbstractEntityInitializer.java:568) ~[hibernate-core-6.4.4.Final.jar!/:6.4.4.Final]
+	at org.hibernate.sql.results.graph.entity.AbstractEntityInitializer.resolveInstance(AbstractEntityInitializer.java:403) ~[hibernate-core-6.4.4.Final.jar!/:6.4.4.Final]
+	at org.hibernate.sql.results.internal.InitializersList.resolveInstances(InitializersList.java:88) ~[hibernate-core-6.4.4.Final.jar!/:6.4.4.Final]
+	at org.hibernate.sql.results.internal.StandardRowReader.coordinateInitializers(StandardRowReader.java:108) ~[hibernate-core-6.4.4.Final.jar!/:6.4.4.Final]
+	at org.hibernate.sql.results.internal.StandardRowReader.readRow(StandardRowReader.java:86) ~[hibernate-core-6.4.4.Final.jar!/:6.4.4.Final]
+	at org.hibernate.sql.results.spi.ListResultsConsumer.consume(ListResultsConsumer.java:203) ~[hibernate-core-6.4.4.Final.jar!/:6.4.4.Final]
+	at org.hibernate.sql.results.spi.ListResultsConsumer.consume(ListResultsConsumer.java:33) ~[hibernate-core-6.4.4.Final.jar!/:6.4.4.Final]
+	at org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.doExecuteQuery(JdbcSelectExecutorStandardImpl.java:209) ~[hibernate-core-6.4.4.Final.jar!/:6.4.4.Final]
+	at org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.executeQuery(JdbcSelectExecutorStandardImpl.java:83) ~[hibernate-core-6.4.4.Final.jar!/:6.4.4.Final]
+	at org.hibernate.sql.exec.spi.JdbcSelectExecutor.list(JdbcSelectExecutor.java:76) ~[hibernate-core-6.4.4.Final.jar!/:6.4.4.Final]
+	at org.hibernate.sql.exec.spi.JdbcSelectExecutor.list(JdbcSelectExecutor.java:65) ~[hibernate-core-6.4.4.Final.jar!/:6.4.4.Final]
+	at org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan.lambda$new$2(ConcreteSqmSelectQueryPlan.java:137) ~[hibernate-core-6.4.4.Final.jar!/:6.4.4.Final]
+	at org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan.withCacheableSqmInterpretation(ConcreteSqmSelectQueryPlan.java:362) ~[hibernate-core-6.4.4.Final.jar!/:6.4.4.Final]
+	at org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan.performList(ConcreteSqmSelectQueryPlan.java:303) ~[hibernate-core-6.4.4.Final.jar!/:6.4.4.Final]
+	at org.hibernate.query.sqm.internal.QuerySqmImpl.doList(QuerySqmImpl.java:509) ~[hibernate-core-6.4.4.Final.jar!/:6.4.4.Final]
+	at org.hibernate.query.spi.AbstractSelectionQuery.list(AbstractSelectionQuery.java:427) ~[hibernate-core-6.4.4.Final.jar!/:6.4.4.Final]
+	at org.hibernate.query.Query.getResultList(Query.java:120) ~[hibernate-core-6.4.4.Final.jar!/:6.4.4.Final]
+	at org.springframework.data.jpa.repository.support.SimpleJpaRepository.findAll(SimpleJpaRepository.java:383) ~[spring-data-jpa-3.2.5.jar!/:3.2.5]
+	at org.springframework.data.jpa.repository.support.SimpleJpaRepository.findAll(SimpleJpaRepository.java:1) ~[spring-data-jpa-3.2.5.jar!/:3.2.5]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:354) ~[spring-aop-6.1.6.jar!/:6.1.6]
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker$RepositoryFragmentMethodInvoker.lambda$new$0(RepositoryMethodInvoker.java:277) ~[spring-data-commons-3.2.5.jar!/:3.2.5]
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.doInvoke(RepositoryMethodInvoker.java:170) ~[spring-data-commons-3.2.5.jar!/:3.2.5]

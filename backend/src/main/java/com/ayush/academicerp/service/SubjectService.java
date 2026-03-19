@@ -1,0 +1,96 @@
+package com.ayush.academicerp.service;
+
+import com.ayush.academicerp.entity.Subject;
+import com.ayush.academicerp.entity.Department;
+import com.ayush.academicerp.dto.SubjectDto;
+import com.ayush.academicerp.projection.SubjectProjection;
+import com.ayush.academicerp.repository.SubjectRepository;
+import com.ayush.academicerp.repository.DepartmentRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+@Service
+@RequiredArgsConstructor
+@SuppressWarnings("null")
+public class SubjectService {
+
+    private final SubjectRepository subjectRepository;
+    private final DepartmentRepository departmentRepository;
+
+    public List<SubjectDto> getAllSubjects() {
+        return subjectRepository.findAllSubjectsProjection().stream()
+                .map(this::convertProjectionToDto)
+                .collect(Collectors.toList());
+    }
+    
+    private SubjectDto convertProjectionToDto(SubjectProjection projection) {
+        return new SubjectDto(
+            projection.getId(),
+            projection.getName(),
+            projection.getCode(),
+            projection.getSemester(),
+            projection.getDepartmentName()
+        );
+    }
+
+    public Optional<Subject> getSubjectById(Long id) {
+        return subjectRepository.findById(id);
+    }
+
+    public Subject createSubject(Subject subject) {
+        if (subject.getName() == null || subject.getName().isBlank()) {
+            throw new RuntimeException("Subject name is mandatory");
+        }
+        if (subject.getCode() == null || subject.getCode().isBlank()) {
+            throw new RuntimeException("Subject code is mandatory");
+        }
+        if (subject.getSemester() == null) {
+            subject.setSemester(1);
+        }
+
+        // Validate department exists if provided
+        if (subject.getDepartment() != null && subject.getDepartment().getId() != null) {
+            Department department = departmentRepository.findById(subject.getDepartment().getId())
+                    .orElseThrow(() -> new RuntimeException("Department not found"));
+            subject.setDepartment(department);
+        }
+        
+        return subjectRepository.save(subject);
+    }
+
+    public Subject updateSubject(Long id, Subject subjectDetails) {
+        Subject subject = subjectRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Subject not found"));
+
+        subject.setName(subjectDetails.getName());
+        subject.setCode(subjectDetails.getCode());
+        subject.setSemester(subjectDetails.getSemester());
+
+        if (subjectDetails.getDepartment() != null && subjectDetails.getDepartment().getId() != null) {
+            Department department = departmentRepository.findById(subjectDetails.getDepartment().getId())
+                    .orElseThrow(() -> new RuntimeException("Department not found"));
+            subject.setDepartment(department);
+        }
+
+        return subjectRepository.save(subject);
+    }
+
+    public void deleteSubject(Long id) {
+        if (!subjectRepository.existsById(id)) {
+            throw new RuntimeException("Subject not found");
+        }
+        subjectRepository.deleteById(id);
+    }
+
+    public List<Subject> getSubjectsByDepartment(Long departmentId) {
+        return subjectRepository.findByDepartmentId(departmentId);
+    }
+
+    public List<Subject> getSubjectsBySemester(Integer semester) {
+        return subjectRepository.findBySemester(semester);
+    }
+}

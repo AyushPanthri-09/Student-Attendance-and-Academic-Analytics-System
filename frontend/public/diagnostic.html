@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Diagnostic Test</title>
+    <style>
+        body { font-family: Arial; padding: 20px; max-width: 800px; }
+        .test { margin: 20px 0; padding: 15px; border: 1px solid #ccc; border-radius: 5px; }
+        .pass { background: #d4edda; color: #155724; border-color: #28a745; }
+        .fail { background: #f8d7da; color: #721c24; border-color: #f5c6cb; }
+        .loading { background: #fff3cd; color: #856404; border-color: #ffc107; }
+        code { background: #f5f5f5; padding: 2px 5px; border-radius: 3px; }
+    </style>
+</head>
+<body>
+<h1>🔍 Application Diagnostic Test</h1>
+
+<div class="test loading" id="frontend">
+    <h3>🔄 Frontend Status</h3>
+    <p>Testing: <code>http://localhost:5174</code></p>
+    <p id="frontend-msg">Loading...</p>
+</div>
+
+<div class="test loading" id="backend">
+    <h3>🔄 Backend Status</h3>
+    <p>Testing: <code>http://localhost:8080/api</code></p>
+    <p id="backend-msg">Loading...</p>
+</div>
+
+<div class="test loading" id="api">
+    <h3>🔄 API Endpoint</h3>
+    <p>Testing: <code>http://localhost:8080/api/analytics/overview</code></p>
+    <p id="api-msg">Loading...</p>
+</div>
+
+<script>
+// Test Frontend
+fetch('http://localhost:5174')
+    .then(r => {
+        document.getElementById('frontend').className = 'test pass';
+        document.getElementById('frontend-msg').textContent = '✅ Frontend is accessible and running on port 5174';
+    })
+    .catch(e => {
+        document.getElementById('frontend').className = 'test fail';
+        document.getElementById('frontend-msg').textContent = '❌ Frontend error: ' + e.message;
+    });
+
+// Test Backend Root
+fetch('http://localhost:8080')
+    .then(r => {
+        document.getElementById('backend').className = 'test pass';
+        document.getElementById('backend-msg').textContent = '✅ Backend is accessible on port 8080';
+    })
+    .catch(e => {
+        document.getElementById('backend').className = 'test fail';
+        document.getElementById('backend-msg').textContent = '❌ Backend error: ' + e.message;
+    });
+
+// Test API
+fetch('http://localhost:8080/api/analytics/overview')
+    .then(r => r.json())
+    .then(data => {
+        document.getElementById('api').className = 'test pass';
+        document.getElementById('api-msg').innerHTML = '✅ API is working!<br/><code>' + JSON.stringify(data, null, 2) + '</code>';
+    })
+    .catch(e => {
+        document.getElementById('api').className = 'test fail';
+        document.getElementById('api-msg').textContent = '❌ API error: ' + e.message;
+    });
+</script>
+</body>
+</html>

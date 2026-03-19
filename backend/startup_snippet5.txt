@@ -1,0 +1,133 @@
+﻿
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.5)
+
+2026-03-18T16:02:23.851+05:30  INFO 4352 --- [           main] c.a.academicerp.AcademicErpApplication   : Starting AcademicErpApplication v0.0.1-SNAPSHOT using Java 17.0.10 with PID 4352 (C:\Users\sriva\Downloads\JAVA PROJECT RAHUL SIR\Student-Attendance-and-Academic-Analytics-System-main\backend\target\academic-erp-0.0.1-SNAPSHOT.jar started by sriva in C:\Users\sriva\Downloads\JAVA PROJECT RAHUL SIR\Student-Attendance-and-Academic-Analytics-System-main\backend)
+2026-03-18T16:02:23.857+05:30  INFO 4352 --- [           main] c.a.academicerp.AcademicErpApplication   : No active profile set, falling back to 1 default profile: "default"
+2026-03-18T16:02:25.172+05:30  INFO 4352 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-18T16:02:25.366+05:30  INFO 4352 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 156 ms. Found 12 JPA repository interfaces.
+2026-03-18T16:02:26.531+05:30  INFO 4352 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-03-18T16:02:26.548+05:30  INFO 4352 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-18T16:02:26.548+05:30  INFO 4352 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-03-18T16:02:26.617+05:30  INFO 4352 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-03-18T16:02:26.617+05:30  INFO 4352 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2585 ms
+2026-03-18T16:02:26.968+05:30  INFO 4352 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-03-18T16:02:27.112+05:30  INFO 4352 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-03-18T16:02:27.190+05:30  INFO 4352 --- [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-03-18T16:02:27.702+05:30  INFO 4352 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-18T16:02:27.740+05:30  INFO 4352 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-03-18T16:02:28.000+05:30  INFO 4352 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5e0f2c82
+2026-03-18T16:02:28.005+05:30  INFO 4352 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-03-18T16:02:28.082+05:30  WARN 4352 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-18T16:02:28.087+05:30  WARN 4352 --- [           main] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2026-03-18T16:02:29.863+05:30  INFO 4352 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+Hibernate: 
+    alter table academic_calendar 
+       add column name varchar(255)
+Hibernate: 
+    alter table fees 
+       add column name varchar(255)
+Hibernate: 
+    alter table marks 
+       add column name varchar(255)
+2026-03-18T16:02:30.217+05:30  INFO 4352 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-18T16:02:30.844+05:30  INFO 4352 --- [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-18T16:02:32.332+05:30  WARN 4352 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-18T16:02:32.561+05:30  INFO 4352 --- [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@43a188b6, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@20f6e126, org.springframework.security.web.context.SecurityContextHolderFilter@7963767d, org.springframework.security.web.header.HeaderWriterFilter@76be352d, org.springframework.web.filter.CorsFilter@61e2a860, org.springframework.security.web.authentication.logout.LogoutFilter@6eecd951, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3e7aa2c9, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2232c745, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5f83aac3, org.springframework.security.web.access.ExceptionTranslationFilter@5881d8da, org.springframework.security.web.access.intercept.AuthorizationFilter@95d5d31]
+2026-03-18T16:02:33.329+05:30  INFO 4352 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2026-03-18T16:02:33.355+05:30  INFO 4352 --- [           main] c.a.academicerp.AcademicErpApplication   : Started AcademicErpApplication in 10.345 seconds (process running for 11.149)
+Hibernate: 
+    select
+        count(*) 
+    from
+        attendances a1_0
+Hibernate: 
+    select
+        count(*) 
+    from
+        students s1_0
+Hibernate: 
+    select
+        count(*) 
+    from
+        departments d1_0
+Hibernate: 
+    select
+        count(*) 
+    from
+        student_subject_enrollments sse1_0
+Hibernate: 
+    select
+        count(*) 
+    from
+        courses c1_0
+2026-03-18T16:02:33.540+05:30  INFO 4352 --- [           main] c.a.academicerp.config.DataInitializer   : Database counts - Attendance: 0, Students: 500, Departments: 4, Enrollments: 0, Courses: 4
+2026-03-18T16:02:33.540+05:30  INFO 4352 --- [           main] c.a.academicerp.config.DataInitializer   : Generating attendance data for existing students...
+Hibernate: 
+    select
+        s1_0.id,
+        s1_0.course_id,
+        s1_0.department_id,
+        s1_0.dob,
+        s1_0.exam_eligible,
+        s1_0.name,
+        s1_0.roll_no,
+        s1_0.semester 
+    from
+        students s1_0
+Hibernate: 
+    select
+        d1_0.id,
+        d1_0.code,
+        d1_0.name 
+    from
+        departments d1_0 
+    where
+        d1_0.id=?
+Hibernate: 
+    select
+        d1_0.id,
+        d1_0.code,
+        d1_0.name 
+    from
+        departments d1_0 
+    where
+        d1_0.id=?
+Hibernate: 
+    select
+        d1_0.id,
+        d1_0.code,
+        d1_0.name 
+    from
+        departments d1_0 
+    where
+        d1_0.id=?
+Hibernate: 
+    select
+        d1_0.id,
+        d1_0.code,
+        d1_0.name 
+    from
+        departments d1_0 
+    where
+        d1_0.id=?
+Hibernate: 
+    select
+        s1_0.id,
+        s1_0.code,
+        s1_0.department_id,
+        s1_0.name,
+        s1_0.semester 
+    from
+        subjects s1_0
+Hibernate: 
+    select
+        count(*) 
+    from
+        attendances a1_0
+2026-03-18T16:02:33.711+05:30  INFO 4352 --- [           main] c.a.academicerp.config.DataInitializer   : Attendance data generation completed! Created 0 attendance records
