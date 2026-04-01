@@ -92,7 +92,7 @@ export default function Sidebar({ isOpen = false, onClose = () => {} }) {
         {/* Management Section */}
         <div className="space-y-2">
           <p className="px-4 text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] mb-4">Core Management</p>
-          <NavItem to="/students" icon={Users} label="Student Roster" />
+          <NavItem to="/students" icon={Users} label="Students" />
           <NavItem to="/department-management" icon={BarChart3} label="Department Master" />
           <NavItem to="/subjects-management" icon={BookOpen} label="Curriculum" />
           <NavItem to="/attendance" icon={ClipboardList} label="Attendance Log" />

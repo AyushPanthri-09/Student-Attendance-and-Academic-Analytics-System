@@ -319,7 +319,7 @@ export default function ComprehensiveAnalytics() {
               V2.1 RESILIENT
             </div>
           </div>
-          <p className="text-slate-500 font-semibold uppercase text-xs tracking-[0.24em]">Institutional Forensic Analytics And Predictive Engine</p>
+          <p className="text-slate-500 font-semibold uppercase text-xs tracking-[0.24em]">Attendance insights, risk signals, and action guidance in one view</p>
         </div>
         
         <div className="flex flex-wrap items-center gap-4">
@@ -351,8 +351,8 @@ export default function ComprehensiveAnalytics() {
       {/* Real-time Performance Strip */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {[
-          { label: 'Active Roster', value: formatCompactNumber(data.realtime?.activeStudents || data.overview?.totalStudents || 0), icon: Users, color: 'text-blue-600', bg: 'bg-blue-50' },
-          { label: 'Avg Engagement', value: `${(data.realtime?.engagementRate || data.overview?.averageAttendance || 0).toFixed(1)}%`, icon: Gauge, color: 'text-indigo-600', bg: 'bg-indigo-50' },
+          { label: 'Active Students', value: formatCompactNumber(data.realtime?.activeStudents || data.overview?.totalStudents || 0), icon: Users, color: 'text-blue-600', bg: 'bg-blue-50' },
+          { label: 'Average Attendance', value: `${(data.realtime?.engagementRate || data.overview?.averageAttendance || 0).toFixed(1)}%`, icon: Gauge, color: 'text-indigo-600', bg: 'bg-indigo-50' },
           { label: 'Live Present', value: formatCompactNumber(data.realtime?.presentToday || 0), icon: Activity, color: 'text-emerald-600', bg: 'bg-emerald-50' },
           { label: 'Model Accuracy', value: `${(data.realtime?.accuracy || 94).toFixed(2)}%`, icon: Target, color: 'text-slate-700', bg: 'bg-slate-100' },
         ].map((item, i) => (
@@ -412,13 +412,13 @@ export default function ComprehensiveAnalytics() {
 
         {/* Global Distribution */}
         <motion.div variants={cardVariants} className="lg:col-span-4 glass p-10 rounded-[3rem] border border-white flex flex-col items-center">
-          <h3 className="text-2xl font-black text-slate-900 tracking-tight mb-2 self-start">Risk Archetype</h3>
+          <h3 className="text-2xl font-black text-slate-900 tracking-tight mb-2 self-start">Risk Level Breakdown</h3>
           <p className="text-xs text-slate-400 font-bold uppercase tracking-widest mb-3 self-start">
-            {selectedDepartment === 'ALL' ? 'Population Segmentation (All Departments)' : `Population Segmentation (${selectedDepartment})`}
+            {selectedDepartment === 'ALL' ? 'Student split by risk level (all departments)' : `Student split by risk level (${selectedDepartment})`}
           </p>
           <div className="mb-6 w-full">
             <ChartNotation
-              title="Risk Notation"
+              title="Risk Levels"
               items={[
                 { label: 'Safe (>= 75%)', color: '#10b981' },
                 { label: 'Moderate (60-74%)', color: '#f59e0b' },
@@ -464,11 +464,11 @@ export default function ComprehensiveAnalytics() {
         {/* Dept Bar Chart */}
         <motion.div variants={cardVariants} className="glass p-10 rounded-[3rem] border border-white">
           <div className="flex justify-between items-center mb-10">
-            <h3 className="text-2xl font-black text-slate-900 tracking-tight leading-none text-center">Department matrix</h3>
+            <h3 className="text-2xl font-black text-slate-900 tracking-tight leading-none text-center">Department Attendance Comparison</h3>
             <BarChart3 className="text-slate-300" size={24} />
           </div>
           <div className="-mt-6 mb-5 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-            <p className="text-sm text-slate-500 font-semibold">X-axis: attendance percentage. Y-axis: departments. Use filter to focus on one department.</p>
+            <p className="text-sm text-slate-500 font-semibold">Each bar shows average attendance for one department. Use the filter to focus on one department.</p>
             <select
               value={selectedDepartment}
               onChange={(e) => setSelectedDepartment(e.target.value)}
@@ -504,10 +504,10 @@ export default function ComprehensiveAnalytics() {
         {/* Top Subjects Bar Chart */}
         <motion.div variants={cardVariants} className="glass p-10 rounded-[3rem] border border-white">
           <div className="flex justify-between items-center mb-10">
-            <h3 className="text-2xl font-black text-slate-900 tracking-tight leading-none text-center">Module Diagnostics</h3>
+            <h3 className="text-2xl font-black text-slate-900 tracking-tight leading-none text-center">Subject Attendance Snapshot</h3>
             <BookOpen className="text-slate-300" size={24} />
           </div>
-          <p className="text-sm text-slate-500 font-semibold -mt-6 mb-6">X-axis: attendance percentage. Y-axis: subjects. Showing top modules for selected department filter.</p>
+          <p className="text-sm text-slate-500 font-semibold -mt-6 mb-6">Shows top subjects by attendance for the selected department filter.</p>
           <div className="h-[350px]">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={comparativeSubjects} layout="vertical" margin={{ top: 10, right: 24, left: 20, bottom: 10 }}>
@@ -538,8 +538,9 @@ export default function ComprehensiveAnalytics() {
             <div className="bg-amber-500 p-2 rounded-xl shadow-lg shadow-amber-500/20">
               <ShieldAlert className="text-white" size={20} />
             </div>
-            <h3 className="text-2xl font-black text-slate-900 tracking-tight">Insight Block 1: Anomaly Sentinel</h3>
+            <h3 className="text-2xl font-black text-slate-900 tracking-tight">Insight Block 1: Anomaly Alerts</h3>
           </div>
+          <p className="text-sm text-slate-500 font-semibold -mt-4 mb-6">This section highlights unusual attendance patterns that need quick attention.</p>
           <div className="space-y-4">
             {(data.anomalies?.length || 0) > 0 ? data.anomalies.map((anno, idx) => (
               <div key={idx} className="bg-white border border-slate-200 p-6 rounded-2xl shadow-sm">
@@ -553,8 +554,8 @@ export default function ComprehensiveAnalytics() {
             )) : (
               <div className="h-full flex flex-col items-center justify-center text-center p-10 text-slate-400 border-2 border-dashed border-slate-200 rounded-[2rem]">
                 <ShieldAlert size={40} className="mb-4 opacity-20" />
-                <p className="text-sm font-bold text-slate-600">No anomaly records available at this time.</p>
-                <p className="text-xs text-slate-500 mt-1">System is healthy or anomaly signals are still being computed.</p>
+                <p className="text-sm font-bold text-slate-600">No unusual patterns detected right now.</p>
+                <p className="text-xs text-slate-500 mt-1">Either attendance is stable, or anomaly checks are still running.</p>
                 <Link to="/attendance" className="mt-4 inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 transition-colors">
                   View Attendance Log <ChevronRight size={12} />
                 </Link>
@@ -605,13 +606,14 @@ export default function ComprehensiveAnalytics() {
             <div className="bg-blue-600 p-2 rounded-xl shadow-lg shadow-blue-600/20">
               <Brain className="text-white" size={20} />
             </div>
-            <h3 className="text-2xl font-black text-slate-900 tracking-tight leading-none">Insight Block 3: Sentiment Spectrum</h3>
+            <h3 className="text-2xl font-black text-slate-900 tracking-tight leading-none">Insight Block 3: Feedback Mood Split</h3>
           </div>
+          <p className="text-sm text-slate-500 font-semibold -mt-6 mb-6">Shows how feedback responses are split into positive, neutral, and negative mood.</p>
           
           <div className="flex-1 flex flex-col justify-center">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-black text-slate-500 uppercase tracking-widest">{(data.sentiment?.overallSentiment || 'NEUTRAL')} BIAS</span>
-              <span className="text-xs font-black text-blue-600">{data.sentiment?.totalResponses || 0} RESPONSES</span>
+              <span className="text-xs font-black text-slate-500 uppercase tracking-widest">Overall Mood: {(data.sentiment?.overallSentiment || 'NEUTRAL')}</span>
+              <span className="text-xs font-black text-blue-600">Feedback Count: {data.sentiment?.totalResponses || 0}</span>
             </div>
             <div className="flex h-12 w-full rounded-2xl overflow-hidden shadow-sm border border-slate-100">
               <div 
@@ -634,7 +636,7 @@ export default function ComprehensiveAnalytics() {
               </div>
             </div>
             <p className="mt-8 text-sm text-slate-500 font-medium leading-relaxed italic px-2">
-              "The current sentiment distribution suggests a {(data.sentiment?.overallSentiment || 'NEUTRAL').toLowerCase()} alignment with institutional attendance policy."
+              "Most feedback is currently {(data.sentiment?.overallSentiment || 'NEUTRAL').toLowerCase()}. Use this with attendance trends to decide next actions."
             </p>
           </div>
         </motion.div>

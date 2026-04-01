@@ -218,12 +218,13 @@ export default function OverviewDashboard() {
         {/* Risk Distribution Pie Chart */}
         <motion.div variants={itemVariants} className="lg:col-span-2 glass p-8 rounded-[2rem]">
           <div className="flex items-center justify-between mb-8">
-            <h3 className="text-lg font-black text-gray-900 tracking-tight">Risk Distribution</h3>
+            <h3 className="text-lg font-black text-gray-900 tracking-tight">Student Risk Breakdown</h3>
             <PieIcon className="text-gray-400" size={20} />
           </div>
+          <p className="text-sm text-slate-500 font-semibold -mt-3 mb-5">This chart shows how many students are in safe, warning, and critical attendance ranges.</p>
           <div className="-mt-3 mb-5">
             <ChartNotation
-              title="Risk Notation"
+              title="Risk Labels"
               items={[
                 { label: 'Safe (>= 75%)', color: '#0ea5e9' },
                 { label: 'Warning (60-74%)', color: '#f59e0b' },
@@ -270,7 +271,7 @@ export default function OverviewDashboard() {
           </ResponsiveContainer>
             <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
               <div className="rounded-2xl bg-white/80 backdrop-blur px-4 py-2 border border-slate-100 text-center">
-                <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-slate-500">Total At Risk Pool</p>
+                <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-slate-500">Students In This Chart</p>
                 <p className="text-2xl font-black text-slate-800 leading-none mt-1">{totalRiskCount}</p>
               </div>
             </div>
@@ -296,9 +297,10 @@ export default function OverviewDashboard() {
         {/* Department Performance Bar Chart */}
         <motion.div variants={itemVariants} className="lg:col-span-3 glass p-8 rounded-[2rem]">
           <div className="flex items-center justify-between mb-8">
-            <h3 className="text-lg font-black text-gray-900 tracking-tight">Performance indices</h3>
+            <h3 className="text-lg font-black text-gray-900 tracking-tight">Department Attendance Comparison</h3>
             <BarChart3 className="text-gray-400" size={20} />
           </div>
+          <p className="text-sm text-slate-500 font-semibold -mt-3 mb-4">Each bar is one department's average attendance percentage.</p>
           <div className="h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={topDepartments} margin={{ top: 16, right: 10, left: 0, bottom: chartScale.bottomMargin }}>

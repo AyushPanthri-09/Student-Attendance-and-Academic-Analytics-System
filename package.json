@@ -1,9 +1,18 @@
 {
+  "scripts": {
+    "dev": "concurrently -k -n BACKEND,FRONTEND -c yellow,cyan \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "powershell -ExecutionPolicy Bypass -File ./backend/run-backend.ps1 -SkipClean",
+    "dev:frontend": "npm --prefix frontend run dev"
+  },
   "dependencies": {
     "html2canvas": "^1.4.1",
     "jspdf": "^4.2.0",
     "react-calendar-heatmap": "^1.10.0",
     "react-heatmap-grid": "^0.9.1",
     "zustand": "^5.0.11"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "pdfkit": "^0.18.0"
   }
 }
